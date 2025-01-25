@@ -1,0 +1,22 @@
+@if (isAddingTask()) {
+  <app-new-task [userId]="user().id" [isDialogOpen]="isAddingTask()" (close)="onClose()"/>
+}
+<section id="tasks">
+  <header>
+    <h2>{{user().name}}'s Tasks</h2>
+    <menu>
+      <button (click)="onStartAddTask()">Add Task</button>
+    </menu>
+  </header>
+  @if (userTasks().length > 0) {
+    <ul>
+      @for (task of userTasks(); track task.id) {
+        <li>
+          <app-task [task]=task></app-task>
+        </li>
+      }
+    </ul>
+  }@else {
+    <p id="fallback">No tasks found</p>
+  }
+</section>
